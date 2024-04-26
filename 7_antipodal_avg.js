@@ -12,40 +12,36 @@ Example:
 
 const numbers = [1, 2, 3, 5, 22];
 
-//- Split the array into two equal parts*. If unequal, remove the middle element to obtain two equal arrays.
+//Dividiendo el array en partes iguales:
 
 function splitArray(array) {
-    const half = Math.floor(array.length / 2);
-    const firstHalf = array.slice(0, half);
-    const secondHalf = array.slice(half);
-    return [firstHalf, secondHalf];
+    let half = Math.floor(array.length / 2);
+    let firstHalf, secondHalf;
+    //Si el array se conforma de un numero PAR de elementos:
+    if (array.length % 2 === 0) {
+        firstHalf = array.slice(0, half);
+        secondHalf = array.slice(half);
+    //Si el array se conforma de un numero IMPAR:
+    } else {
+        firstHalf = array.slice(0, half);
+        secondHalf = array.slice(half + 1);
+    }
+    //Devolver la primera mitad del array y el INVERSO de la segunda mitad:
+    return [firstHalf, secondHalf.reverse()];
 }
 
-function inverseArray(array) {
-    const inverse = [];
-    for (let i = array.length - 1; i >= 0; i--) {
-        inverse.push(array[i]);
+//Sumando elementos entre arrays y diviendo por 2:
+
+function sumAndDivide(a1, a2){
+    const sumDiv = [];
+    for (let i = 0; i < a1.length; i++) {
+        sumDiv.push((a1[i] + a2[i]) / 2);
     }
-    return inverse;
+    return sumDiv;
 }
 
-function sumArrays(array1, array2) {
-    const sum = [];
-    for (let i = 0; i < array1.length; i++) {
-        sum.push(array1[i] + inverseArray(array2)[i]);
-    }
-    return sum;
-}
-
-function divideArray(array) {
-    const divided = [];
-    for (let i = 0; i < array.length; i++) {
-        divided.push(array[i] / 2);
-    }
-    return divided;
-}
+//Declarando las variables como del primer y segundo array ya divididos para cargar el array original "numbers":
 
 const [firstHalf, secondHalf] = splitArray(numbers);
 
-console.log(divideArray(sumArrays(firstHalf, inverseArray(secondHalf))));
-
+console.log(sumAndDivide(firstHalf, secondHalf));
